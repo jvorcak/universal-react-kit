@@ -32,14 +32,14 @@ function handleRender(req, res) {
   // Query our mock API asynchronously
   fetchCounter(apiResult => {
     // Read the counter from the request, if provided
-    const params = qs.parse(req.query)
-    const counter = parseInt(params.counter, 10) || apiResult || 0
+    const params = qs.parse(req.query);
+    const counter = parseInt(params.counter, 10) || apiResult || 0;
 
     // Compile an initial state
-    const initialState = { counter }
+    const initialState = { counter };
 
     // Create a new Redux store instance
-    const store = configureStore(initialState)
+    const store = configureStore(initialState);
 
     // Render the component to a string
     const html = renderToString(
@@ -78,6 +78,6 @@ app.listen(port, (error) => {
   if (error) {
     console.error(error)
   } else {
-    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
   }
 });
