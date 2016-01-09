@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
+import DevTools from '../devTools';
 
 class Counter extends Component {
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
+    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
     return (
       <p>
         Clicked: {counter} times

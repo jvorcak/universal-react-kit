@@ -13,20 +13,20 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 
-import configureStore from '../common/store/configureStore'
-import App from '../common/containers/App'
-import { fetchCounter } from '../common/api/counter'
+import configureStore from '../common/configureStore'
+import App from '../client/app/App';
+import { fetchCounter } from '../common/counter/api';
 
-const app = new Express()
-const port = 3000
+const app = new Express();
+const port = 3000;
 
 // Use this middleware to set up hot module reloading via webpack.
-const compiler = webpack(webpackConfig)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+const compiler = webpack(webpackConfig);
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
 
 // This is fired every time the server side receives a request
-app.use(handleRender)
+app.use(handleRender);
 
 function handleRender(req, res) {
   // Query our mock API asynchronously
@@ -46,10 +46,10 @@ function handleRender(req, res) {
       <Provider store={store}>
         <App />
       </Provider>
-    )
+    );
 
     // Grab the initial state from our Redux store
-    const finalState = store.getState()
+    const finalState = store.getState();
 
     // Send the rendered page back to the client
     res.send(renderFullPage(html, finalState))
@@ -80,4 +80,4 @@ app.listen(port, (error) => {
   } else {
     console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
   }
-})
+});
