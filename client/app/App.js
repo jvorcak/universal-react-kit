@@ -16,15 +16,18 @@ function mapStateToProps(state) {
 
 const actions = [
   eventActions,
-  counterActions,
+  counterActions
 ];
 
 function mapDispatchToProps(dispatch) {
-  //const creators = Map()
-  //  .merge(...actions)
-  //  .filter(value => typeof value === 'function')
-  //  .toObject();
-  return bindActionCreators(counterActions, dispatch);
+  const creators = Map()
+    .merge(...actions)
+    .filter(value => typeof value === 'function')
+    .toObject();
+
+  return {
+    actions: bindActionCreators(creators, dispatch)
+  };
 }
 
 class App extends Component {

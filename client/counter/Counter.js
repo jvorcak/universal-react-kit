@@ -13,10 +13,15 @@ export default class Counter extends Component {
   //};
 
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
+    const {
+      actions: {increment, incrementIfOdd, incrementAsync, decrement},
+      counter: {
+        counter
+        } } = this.props;
+
     return (
       <p>
-        Clicked: {counter.counter} times
+        Clicked: {counter} times
         {' '}
         <button onClick={increment}>+</button>
         {' '}
