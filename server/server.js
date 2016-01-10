@@ -10,6 +10,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
 import React from 'react';
+import redux from 'redux';
 import { Link } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -43,28 +44,36 @@ function handleRender(req, res) {
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
 
-      const apiResult = await fetchCounter();
+      //const apiResult = await fetchCounter();
 
       // Compile an initial state
-      const initialState = {
-        counter: {
-          counter: apiResult
-        }
-      };
+      const initialState = {};
 
-      // Create a new Redux store instance
-      const store = configureStore(initialState);
-      const html = renderToString(
-        <Provider store={store}>
-          <RoutingContext {...renderProps}/>
-        </Provider>
-      );
+      // TODO - here I somehow need to call each component's static fetchData method and return a page afterwards
+      const {routes} = renderProps;
+      routes
+        .filter(({component}) => component.fetchData)
+        .map(component => console.log(component))
+        .map(component => {
+          // have each component dispatch load actions that return promises
+          return component.fetchData(redux.dispatch);
+        })
+        .then(() => {
+          // Create a new Redux store instance
+          const store = configureStore(initialState);
+          const html = renderToString(
+            <Provider store={store}>
+              <RoutingContext {...renderProps}/>
+            </Provider>
+          );
 
-      // Grab the initial state from our Redux store
-      const finalState = store.getState();
+          // Grab the initial state from our Redux store
+          const finalState = store.getState();
 
-      // Send the rendered page back to the client
-      res.send(renderFullPage(html, finalState));
+          // Send the rendered page back to the client
+          res.send(renderFullPage(html, finalState));
+        });
+
 
     } else {
       res.status(404).send('Not found.')

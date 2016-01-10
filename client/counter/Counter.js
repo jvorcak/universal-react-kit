@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
+import fetchCounter from '../../common/counter/api';
+
 export default class Counter extends Component {
 
   //static propTypes = {
@@ -32,4 +34,10 @@ export default class Counter extends Component {
       </p>
     )
   }
+
+  static fetchData() {
+    console.log('fetch data');
+    return fetchCounter;
+  }
 }
+
