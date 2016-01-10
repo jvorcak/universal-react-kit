@@ -15,8 +15,8 @@ function mapStateToProps(state) {
 }
 
 const actions = [
+  counterActions,
   eventActions,
-  counterActions
 ];
 
 function mapDispatchToProps(dispatch) {

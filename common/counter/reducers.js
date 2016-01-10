@@ -1,13 +1,25 @@
+import Immutable, {Record} from 'immutable';
 import { SET_COUNTER, INCREMENT_COUNTER, DECREMENT_COUNTER } from './actions';
 
-export default function counter(state = {}, action) {
+const InitialState = new Record({
+  counter: null
+});
+const initialState = new InitialState();
+
+const revive = ({counter}) => initialState.merge({
+  counter
+});
+
+export default function counter(state = initialState, action) {
+  if(!(state instanceof InitialState)) return revive(state);
+  
   switch (action.type) {
     case SET_COUNTER:
-      return action.payload;
+      return state.set('counter', action.payload);
     case INCREMENT_COUNTER:
-      return {...state, counter: state.counter + 1};
+      return state.set('counter', state.get('counter') + 1);
     case DECREMENT_COUNTER:
-      return {...state, counter: state.counter - 1};
+      return state.set('counter', state.get('counter') - 1);
     default:
       return state;
   }

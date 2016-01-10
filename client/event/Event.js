@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Helmet from 'react-helmet';
 
-export default class Counter extends Component {
+export default class Event extends Component {
 
   //static propTypes = {
   //  increment: PropTypes.func.isRequired,
@@ -13,22 +12,19 @@ export default class Counter extends Component {
 
   render() {
     const {
-      actions: {increment, incrementIfOdd, incrementAsync, decrement},
+      actions,
+      actions: {incrementEvent, decrementEvent},
       counter: {
         counter
         } } = this.props;
 
     return (
       <p>
-        Clicked: {counter} times
+        Event component
         {' '}
-        <button onClick={increment}>+</button>
+        <button onClick={incrementEvent}>+</button>
         {' '}
-        <button onClick={decrement}>-</button>
-        {' '}
-        <button onClick={incrementIfOdd}>Increment if odd</button>
-        {' '}
-        <button onClick={() => incrementAsync()}>Increment async</button>
+        <button onClick={decrementEvent}>-</button>
       </p>
     )
   }
