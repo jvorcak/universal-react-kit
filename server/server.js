@@ -33,7 +33,7 @@ app.use(handleRender);
 const routes = createRoutes();
 
 function handleRender(req, res) {
-  return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+  return match({routes, location: req.url}, async(error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message)
     } else if (redirectLocation) {
@@ -43,30 +43,28 @@ function handleRender(req, res) {
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
 
+      const apiResult = await fetchCounter();
 
-      fetchCounter(apiResult => {
+      // Compile an initial state
+      const initialState = {
+        counter: {
+          counter: apiResult
+        }
+      };
 
-        const params = qs.parse(req.query);
-        const counter = parseInt(params.counter, 10) || apiResult || 0;
+      // Create a new Redux store instance
+      const store = configureStore(initialState);
+      const html = renderToString(
+        <Provider store={store}>
+          <RoutingContext {...renderProps}/>
+        </Provider>
+      );
 
-        // Compile an initial state
-        const initialState = {counter};
+      // Grab the initial state from our Redux store
+      const finalState = store.getState();
 
-        // Create a new Redux store instance
-        const store = configureStore(initialState);
-        const html = renderToString(
-          <Provider store={store}>
-            <RoutingContext {...renderProps}/>
-          </Provider>
-        );
-
-        // Grab the initial state from our Redux store
-        const finalState = store.getState();
-
-        // Send the rendered page back to the client
-        res.send(renderFullPage(html, finalState));
-
-      });
+      // Send the rendered page back to the client
+      res.send(renderFullPage(html, finalState));
 
     } else {
       res.status(404).send('Not found.')

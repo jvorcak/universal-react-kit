@@ -3,7 +3,8 @@ import counter from '../counter/reducers';
 import event from '../event/reducers';
 
 const rootReducer = combineReducers({
-  counter
+  counter,
+  event
 });
 
-export default rootReducer
+export default rootReducer;
