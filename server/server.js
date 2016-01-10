@@ -9,25 +9,51 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
+import React from 'react';
+import { Link } from 'react-router';
+import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { match, RouterContext } from 'react-router';
 
 import configureStore from '../common/configureStore'
 import App from '../client/app/App';
 import { fetchCounter } from '../common/counter/api';
+import createRoutes from '../client/createRoutes';
 
 const app = new Express();
 const port = 3000;
 
 // Use this middleware to set up hot module reloading via webpack.
 const compiler = webpack(webpackConfig);
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: webpackConfig.output.publicPath}));
 app.use(webpackHotMiddleware(compiler));
 
-// This is fired every time the server side receives a request
 app.use(handleRender);
 
+const routes = createRoutes();
+
+/*
+ function handleRender(req, res) {
+ return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+ if (error) {
+ res.status(500).send(error.message)
+ } else if (redirectLocation) {
+ res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+ } else if (renderProps) {
+ // You can also check renderProps.components or renderProps.routes for
+ // your "not found" component or route respectively, and send a 404 as
+ // below, if you're using a catch-all route.
+ res.status(200).send(
+ renderToString(<RouterContext {...renderProps}/>)
+ )
+ } else {
+ res.status(404).send('Not found.')
+ }
+ });
+ }
+ */
+
+// This is fired every time the server side receives a request
 function handleRender(req, res) {
   // Query our mock API asynchronously
   fetchCounter(apiResult => {
@@ -36,7 +62,7 @@ function handleRender(req, res) {
     const counter = parseInt(params.counter, 10) || apiResult || 0;
 
     // Compile an initial state
-    const initialState = { counter };
+    const initialState = {counter};
 
     // Create a new Redux store instance
     const store = configureStore(initialState);

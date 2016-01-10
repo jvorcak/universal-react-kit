@@ -9,8 +9,8 @@ const NotFound = () => <div>Not found</div>;
 export default function createRoutes() {
   return (
     <Route component={App} path="/">
-      <Route component={Counter} path="counter" />
-      <Route component={NotFound} path="*" />
+      <Route component={Counter} path="counter"/>
+      <Route component={NotFound} path="*"/>
     </Route>
   );
 }

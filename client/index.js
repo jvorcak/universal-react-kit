@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from '../common/configureStore';
 import createRoutes from './createRoutes';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
@@ -13,9 +14,8 @@ const routes = createRoutes();
 
 render(
   <Provider store={store}>
-    <Router>
+    <Router history={createBrowserHistory()}>
       {routes}
     </Router>
-  </Provider>,
-  rootElement
+  </Provider>, rootElement
 );
