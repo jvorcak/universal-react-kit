@@ -13,7 +13,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
-import { match, RouterContext } from 'react-router';
+import { match, RoutingContext } from 'react-router';
 
 import configureStore from '../common/configureStore'
 import App from '../client/app/App';
@@ -32,54 +32,46 @@ app.use(handleRender);
 
 const routes = createRoutes();
 
-/*
- function handleRender(req, res) {
- return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
- if (error) {
- res.status(500).send(error.message)
- } else if (redirectLocation) {
- res.redirect(302, redirectLocation.pathname + redirectLocation.search)
- } else if (renderProps) {
- // You can also check renderProps.components or renderProps.routes for
- // your "not found" component or route respectively, and send a 404 as
- // below, if you're using a catch-all route.
- res.status(200).send(
- renderToString(<RouterContext {...renderProps}/>)
- )
- } else {
- res.status(404).send('Not found.')
- }
- });
- }
- */
-
-// This is fired every time the server side receives a request
 function handleRender(req, res) {
-  // Query our mock API asynchronously
-  fetchCounter(apiResult => {
-    // Read the counter from the request, if provided
-    const params = qs.parse(req.query);
-    const counter = parseInt(params.counter, 10) || apiResult || 0;
+  return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+      // You can also check renderProps.components or renderProps.routes for
+      // your "not found" component or route respectively, and send a 404 as
+      // below, if you're using a catch-all route.
 
-    // Compile an initial state
-    const initialState = {counter};
 
-    // Create a new Redux store instance
-    const store = configureStore(initialState);
+      fetchCounter(apiResult => {
 
-    // Render the component to a string
-    const html = renderToString(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+        const params = qs.parse(req.query);
+        const counter = parseInt(params.counter, 10) || apiResult || 0;
 
-    // Grab the initial state from our Redux store
-    const finalState = store.getState();
+        // Compile an initial state
+        const initialState = {counter};
 
-    // Send the rendered page back to the client
-    res.send(renderFullPage(html, finalState))
-  })
+        // Create a new Redux store instance
+        const store = configureStore(initialState);
+        const html = renderToString(
+          <Provider store={store}>
+            <RoutingContext {...renderProps}/>
+          </Provider>
+        );
+
+        // Grab the initial state from our Redux store
+        const finalState = store.getState();
+
+        // Send the rendered page back to the client
+        res.send(renderFullPage(html, finalState));
+
+      });
+
+    } else {
+      res.status(404).send('Not found.')
+    }
+  });
 }
 
 function renderFullPage(html, initialState) {
