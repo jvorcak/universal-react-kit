@@ -15,6 +15,7 @@ import { Link } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { match, RoutingContext } from 'react-router';
+import Counter from '../client/counter/Counter';
 
 import configureStore from '../common/configureStore'
 import App from '../client/app/App';
@@ -48,32 +49,36 @@ function handleRender(req, res) {
 
       // Compile an initial state
       const initialState = {};
+      const store = configureStore(initialState);
 
       // TODO - here I somehow need to call each component's static fetchData method and return a page afterwards
       const {routes} = renderProps;
-      routes
-        .filter(({component}) => component.fetchData)
-        .map(component => console.log(component))
-        .map(component => {
-          // have each component dispatch load actions that return promises
-          return component.fetchData(redux.dispatch);
-        })
-        .then(() => {
-          // Create a new Redux store instance
-          const store = configureStore(initialState);
-          const html = renderToString(
-            <Provider store={store}>
-              <RoutingContext {...renderProps}/>
-            </Provider>
-          );
 
-          // Grab the initial state from our Redux store
-          const finalState = store.getState();
+      //Promise.all(
+      //  routes
+      //    .filter(({component}) => component.fetchData)
+      //    .map(component => {
+      //      console.log('>>>', component);
+      //      return component.component();
+      //    }))
+      //  .then(() => {
+      //     Create a new Redux store instance
+      //});
 
-          // Send the rendered page back to the client
-          res.send(renderFullPage(html, finalState));
-        });
+      const promiseFn = await Counter.fetchData();
+      console.log('>>>>', promiseFn);
 
+      const html = renderToString(
+        <Provider store={store}>
+          <RoutingContext {...renderProps}/>
+        </Provider>
+      );
+
+      //Grab the initial state from our Redux store
+      const finalState = store.getState();
+
+      //Send the rendered page back to the client
+      res.send(renderFullPage(html, finalState));
 
     } else {
       res.status(404).send('Not found.')
