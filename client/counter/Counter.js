@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
-import {fetchCounter}from '../../common/counter/api';
+import {incrementAsync} from '../../common/counter/actions';
 
 export default class Counter extends Component {
 
@@ -35,9 +35,9 @@ export default class Counter extends Component {
     )
   }
 
-  static async fetchData() {
-    console.log('fetch data START', fetchCounter);
-    await fetchCounter();
+  static fetchData() {
+    console.log('fetch data START');
+    return incrementAsync;
     console.log('fetch data DONE');
   }
 }

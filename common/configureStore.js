@@ -3,11 +3,14 @@ import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from './app/reducers';
 import DevTools from '../client/devTools';
+import promiseMiddleware from 'redux-promise-middleware';
 
 const logger = createLogger();
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    thunk, logger
+    thunk, logger, promiseMiddleware({
+      promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR']
+    })
   ),
   DevTools.instrument()
 )(createStore);

@@ -34,6 +34,17 @@ app.use(handleRender);
 
 const routes = createRoutes();
 
+function fetchComponentData(dispatch, components, params) {
+  const needs = components.reduce( (prev, current) => {
+    return (current.needs || [])
+      .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
+      .concat(prev);
+  }, []);
+
+  const promises = needs.map(need => dispatch(need(params)));
+  return Promise.all(promises);
+}
+
 function handleRender(req, res) {
   return match({routes, location: req.url}, async(error, redirectLocation, renderProps) => {
     if (error) {
@@ -51,34 +62,22 @@ function handleRender(req, res) {
       const initialState = {};
       const store = configureStore(initialState);
 
-      // TODO - here I somehow need to call each component's static fetchData method and return a page afterwards
-      const {routes} = renderProps;
+      fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+        .then(() => {
 
-      //Promise.all(
-      //  routes
-      //    .filter(({component}) => component.fetchData)
-      //    .map(component => {
-      //      console.log('>>>', component);
-      //      return component.component();
-      //    }))
-      //  .then(() => {
-      //     Create a new Redux store instance
-      //});
+          const html = renderToString(
+            <Provider store={store}>
+              <RoutingContext {...renderProps}/>
+            </Provider>
+          );
 
-      const promiseFn = await Counter.fetchData();
-      console.log('>>>>', promiseFn);
+          //Grab the initial state from our Redux store
+          const finalState = store.getState();
 
-      const html = renderToString(
-        <Provider store={store}>
-          <RoutingContext {...renderProps}/>
-        </Provider>
-      );
+          //Send the rendered page back to the client
+          res.send(renderFullPage(html, finalState));
+        });
 
-      //Grab the initial state from our Redux store
-      const finalState = store.getState();
-
-      //Send the rendered page back to the client
-      res.send(renderFullPage(html, finalState));
 
     } else {
       res.status(404).send('Not found.')
