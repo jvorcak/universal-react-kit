@@ -5,7 +5,7 @@ import rootReducer from './app/reducers';
 import DevTools from '../client/devTools';
 import promiseMiddleware from 'redux-promise-middleware';
 
-const logger = createLogger();
+const logger = createLogger({logger: console});
 const createStoreWithMiddleware = compose(
   applyMiddleware(
     thunk, logger, promiseMiddleware({
