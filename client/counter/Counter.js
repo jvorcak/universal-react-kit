@@ -13,6 +13,10 @@ export default class Counter extends Component {
   //  counter: PropTypes.number.isRequired
   //};
 
+  static needs = [
+    incrementAsync
+  ];
+
   render() {
     const {
       actions: {increment, incrementIfOdd, incrementAsync, decrement},
@@ -35,10 +39,5 @@ export default class Counter extends Component {
     )
   }
 
-  static fetchData() {
-    console.log('fetch data START');
-    return incrementAsync;
-    console.log('fetch data DONE');
-  }
 }
 
