@@ -1,5 +1,5 @@
 import Immutable, {Record} from 'immutable';
-import { SET_COUNTER, INCREMENT_COUNTER, DECREMENT_COUNTER } from './actions';
+import { SET_COUNTER, INCREMENT_COUNTER, DECREMENT_COUNTER, INCREMENT_COUNTER_SUCCESS } from './actions';
 
 const InitialState = new Record({
   counter: null
@@ -20,6 +20,8 @@ export default function counter(state = initialState, action) {
       return state.set('counter', state.get('counter') + 1);
     case DECREMENT_COUNTER:
       return state.set('counter', state.get('counter') - 1);
+    case INCREMENT_COUNTER_SUCCESS:
+      return state.set('counter', state.get('counter') + action.payload);
     default:
       return state;
   }

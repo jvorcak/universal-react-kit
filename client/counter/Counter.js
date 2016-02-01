@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
+import {incrementAsync} from '../../common/counter/actions';
+
 export default class Counter extends Component {
 
   //static propTypes = {
@@ -10,6 +12,10 @@ export default class Counter extends Component {
   //  decrement: PropTypes.func.isRequired,
   //  counter: PropTypes.number.isRequired
   //};
+
+  static needs = [
+    incrementAsync
+  ];
 
   render() {
     const {
@@ -32,4 +38,6 @@ export default class Counter extends Component {
       </p>
     )
   }
+
 }
+

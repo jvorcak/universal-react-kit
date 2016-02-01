@@ -1,6 +1,7 @@
 export const SET_COUNTER = 'SET_COUNTER';
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+export const INCREMENT_COUNTER_SUCCESS = 'INCREMENT_COUNTER_SUCCESS';
 
 export function set(value) {
   return {
@@ -34,9 +35,17 @@ export function incrementIfOdd() {
 }
 
 export function incrementAsync(delay = 1000) {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(increment())
-    }, delay)
-  }
+  return {
+    type: INCREMENT_COUNTER,
+    payload: {
+      promise: new Promise(function (resolve, reject) {
+        setTimeout(() => {
+          function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+          }
+          resolve(getRandomInt(1, 100))
+        }, 500);
+      })
+    }
+  };
 }

@@ -10,15 +10,19 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
 import React from 'react';
+import redux from 'redux';
 import { Link } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { match, RoutingContext } from 'react-router';
+import Counter from '../client/counter/Counter';
 
 import configureStore from '../common/configureStore'
 import App from '../client/app/App';
 import { fetchCounter } from '../common/counter/api';
 import createRoutes from '../client/createRoutes';
+
+import fetchComponentData from '../common/fetchComponentData';
 
 const app = new Express();
 const port = 3000;
@@ -33,38 +37,32 @@ app.use(handleRender);
 const routes = createRoutes();
 
 function handleRender(req, res) {
-  return match({routes, location: req.url}, async(error, redirectLocation, renderProps) => {
+  return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
     if (error) {
-      res.status(500).send(error.message)
+      res.status(500).end(error.message)
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      // You can also check renderProps.components or renderProps.routes for
-      // your "not found" component or route respectively, and send a 404 as
-      // below, if you're using a catch-all route.
 
-      const apiResult = await fetchCounter();
+      const store = configureStore();
 
-      // Compile an initial state
-      const initialState = {
-        counter: {
-          counter: apiResult
-        }
-      };
+      fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+        .then(() => {
 
-      // Create a new Redux store instance
-      const store = configureStore(initialState);
-      const html = renderToString(
-        <Provider store={store}>
-          <RoutingContext {...renderProps}/>
-        </Provider>
-      );
+          const html = renderToString(
+            <Provider store={store}>
+              <RoutingContext {...renderProps}/>
+            </Provider>
+          );
 
-      // Grab the initial state from our Redux store
-      const finalState = store.getState();
+          // Grab the initial state from our Redux store
+          const finalState = store.getState();
 
-      // Send the rendered page back to the client
-      res.send(renderFullPage(html, finalState));
+          //Send the rendered page back to the client
+          res.end(renderFullPage(html, finalState));
+
+        });
+
 
     } else {
       res.status(404).send('Not found.')
