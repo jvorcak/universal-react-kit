@@ -35,7 +35,7 @@ app.use(handleRender);
 const routes = createRoutes();
 
 function fetchComponentData(dispatch, components, params) {
-  const needs = components.reduce( (prev, current) => {
+  const needs = components.reduce((prev, current) => {
     return (current.needs || [])
       .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
       .concat(prev);
@@ -46,7 +46,8 @@ function fetchComponentData(dispatch, components, params) {
 }
 
 function handleRender(req, res) {
-  return match({routes, location: req.url}, async(error, redirectLocation, renderProps) => {
+  //return match({routes, location: req.url}, async(error, redirectLocation, renderProps) => {
+  return match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message)
     } else if (redirectLocation) {
