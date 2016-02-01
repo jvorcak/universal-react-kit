@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "An example of a universally-rendered Redux application",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test": "mocha --compilers js:babel-core/register ./common/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,8 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
     "babel-runtime": "^5.8.20",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
