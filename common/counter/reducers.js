@@ -1,7 +1,7 @@
 import Immutable, {Record} from 'immutable';
 import { SET_COUNTER, INCREMENT_COUNTER, DECREMENT_COUNTER, INCREMENT_COUNTER_SUCCESS } from './actions';
 
-const InitialState = new Record({
+export const InitialState = new Record({
   counter: null
 });
 const initialState = new InitialState();
