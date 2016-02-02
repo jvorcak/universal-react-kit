@@ -26,7 +26,7 @@ export default class Counter extends Component {
 
     return (
       <p>
-        Clicked: {counter} times
+        Clicked: {counter} times!!!
         {' '}
         <button onClick={increment}>+</button>
         {' '}
