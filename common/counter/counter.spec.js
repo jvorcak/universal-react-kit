@@ -1,10 +1,18 @@
-import {assert} from 'chai';
+import chai from 'chai';
+import chaiImmutable from 'chai-immutable';
 
-describe('Array', function() {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal(-1, [1,2,3].indexOf(5));
-      assert.equal(-1, [1,2,3].indexOf(0));
-    });
-  });
+chai.use(chaiImmutable);
+
+import counterReducer from './reducers';
+import Immutable, {Record} from 'immutable';
+
+describe('counter reducer', () => {
+  it('should return the initial state', () => {
+    const expected = Immutable.fromJS({"counter": null});
+
+    chai.expect(
+      counterReducer(undefined, {})
+    ).to.equal(expected);
+  })
 });
+

@@ -46,6 +46,7 @@
     "babel-preset-stage-2": "^6.3.13",
     "babel-runtime": "^5.8.20",
     "chai": "^3.5.0",
+    "chai-immutable": "^1.5.3",
     "mocha": "^2.4.5",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^3.0.1",
