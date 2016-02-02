@@ -14,6 +14,7 @@ import redux from 'redux';
 import { Link } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import { match, RoutingContext } from 'react-router';
 import Counter from '../client/counter/Counter';
 
@@ -26,6 +27,8 @@ import fetchComponentData from '../common/fetchComponentData';
 
 const app = new Express();
 const port = 3000;
+
+import messages from '../common/messages';
 
 // Use this middleware to set up hot module reloading via webpack.
 const compiler = webpack(webpackConfig);
@@ -51,7 +54,9 @@ function handleRender(req, res) {
 
           const html = renderToString(
             <Provider store={store}>
-              <RoutingContext {...renderProps}/>
+              <IntlProvider locale="en" messages={messages}>
+                <RoutingContext {...renderProps}/>
+              </IntlProvider>
             </Provider>
           );
 

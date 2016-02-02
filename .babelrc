@@ -1,4 +1,13 @@
 {
   "presets":  ["es2015", "react"],
-  "plugins":  ["transform-class-properties", "transform-object-rest-spread", "syntax-async-functions", "transform-async-to-generator"]
+  "plugins":  [
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "syntax-async-functions",
+    "transform-async-to-generator",
+    ["react-intl", {
+      "messagesDir": "./build/messages/",
+      "enforceDescriptions": true
+    }]
+  ]
 }

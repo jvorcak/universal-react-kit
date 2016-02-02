@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
 
 import {incrementAsync} from '../../common/counter/actions';
 
@@ -26,7 +27,11 @@ export default class Counter extends Component {
 
     return (
       <p>
-        Clicked: {counter} times!!!
+        <FormattedMessage
+          id="clicked"
+          description="Clicked message"
+          defaultMessage="Clicked"
+        />: {counter} times!
         {' '}
         <button onClick={increment}>+</button>
         {' '}
