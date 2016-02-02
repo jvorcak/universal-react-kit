@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './client/index.js'
+    './src/client/index.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -30,25 +30,3 @@ module.exports = {
   }
 };
 
-//query: {
-//  optional: [ 'runtime' ],
-//env: {
-//  development: {
-//plugins: [
-//  'react-transform'
-//]
-//extra: {
-//  'react-transform': {
-//    transforms: [
-//      {
-//        transform:  'react-transform-hmr',
-//        imports: [ 'react' ],
-//        locals:  [ 'module' ]
-//      }
-//    ]
-//  }
-//}
-//}
-//}
-//}
-//}

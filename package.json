@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "An example of a universally-rendered Redux application",
   "scripts": {
-    "start": "node server/index.js",
-    "test": "mocha --compilers js:babel-core/register ./common/**/*.spec.js"
+    "start": "node src/server/index.js",
+    "test": "mocha --compilers js:babel-core/register ./src/**/*.spec.js"
   },
   "repository": {
     "type": "git",
