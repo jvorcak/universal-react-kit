@@ -14,6 +14,8 @@ It currently includes/supports:
   - Chai
   - React Helmet
   - Mocha
+  - React-intl 2
+  - Eslint
 
 As written in a headline, it's used to understand how things fit toghether, so there are probably a lot of things that should be done differently. If you see any of those, please feel free to comment.
 
