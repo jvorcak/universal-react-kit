@@ -12,11 +12,12 @@ const store = configureStore(initialState);
 const rootElement = document.getElementById('app');
 const routes = createRoutes();
 
-import messages from '../../build/lang/en-US.json';
+
+const {locale, messages} = window.__I18N__;
 
 render(
   <Provider store={store}>
-    <IntlProvider locale="en" messages={messages}>
+    <IntlProvider locale={locale} messages={messages}>
       <Router history={createBrowserHistory()}>
         {routes}
       </Router>

@@ -22,13 +22,12 @@ import configureStore from '../common/configureStore'
 import App from '../client/app/App';
 import { fetchCounter } from '../common/counter/api';
 import createRoutes from '../client/createRoutes';
+import translations from '../common/translations';
 
 import fetchComponentData from '../common/fetchComponentData';
 
 const app = new Express();
 const port = 3000;
-
-import messages from '../../build/lang/en-US.json';
 
 // Use this middleware to set up hot module reloading via webpack.
 const compiler = webpack(webpackConfig);
@@ -47,6 +46,9 @@ function handleRender(req, res) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
 
+      const locale = req.query.locale || 'en-US';
+      const messages = translations[locale];
+
       const store = configureStore();
 
       fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
@@ -54,7 +56,7 @@ function handleRender(req, res) {
 
           const html = renderToString(
             <Provider store={store}>
-              <IntlProvider locale="en" messages={messages}>
+              <IntlProvider locale={locale} messages={messages}>
                 <RoutingContext {...renderProps}/>
               </IntlProvider>
             </Provider>
@@ -64,7 +66,7 @@ function handleRender(req, res) {
           const finalState = store.getState();
 
           //Send the rendered page back to the client
-          res.end(renderFullPage(html, finalState));
+          res.end(renderFullPage(html, finalState, locale, messages));
 
         });
 
@@ -75,7 +77,7 @@ function handleRender(req, res) {
   });
 }
 
-function renderFullPage(html, initialState) {
+function renderFullPage(html, initialState, locale, messages) {
   return `
     <!doctype html>
     <html>
@@ -85,7 +87,8 @@ function renderFullPage(html, initialState) {
       <body>
         <div id="app">${html}</div>
         <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+          window.__I18N__ = ${JSON.stringify({locale, messages})};
         </script>
         <script src="/static/bundle.js"></script>
       </body>
