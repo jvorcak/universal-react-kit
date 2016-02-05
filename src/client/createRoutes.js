@@ -2,7 +2,7 @@ import React from 'react';
 import App from './app/App';
 import Counter from './counter/Counter';
 import Event from './event/Event';
-import {IndexRoute, Route} from 'react-router';
+import { Route } from 'react-router';
 
 // simple NotFound component
 const NotFound = () => <div>Not found</div>;

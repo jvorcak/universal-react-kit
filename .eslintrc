@@ -7,7 +7,9 @@
   "rules": {
   },
   "globals": {
-    "require": false
+    "require": false,
+    "it": false,
+    "describe": false,
   },
   "settings": {
     "import/ignore": [

@@ -25,8 +25,8 @@ export default class Counter extends Component {
     const {
       actions: { increment, incrementIfOdd, incrementAsync, decrement },
       counter: {
-        counter
-        }
+        counter,
+        },
       } = this.props;
 
     return (
@@ -37,8 +37,8 @@ export default class Counter extends Component {
           defaultMessage="Clicked"
         /> : {counter}
         <FormattedMessage id="times"
-                          description="Number of times user clicked"
-                          defaultMessage="times"
+          description="Number of times user clicked"
+          defaultMessage="times"
         />
         {' '}
         <button onClick={ increment }>+</button>
@@ -47,10 +47,9 @@ export default class Counter extends Component {
         {' '}
         <button onClick={incrementIfOdd}>Increment if odd</button>
         {' '}
-        <button onClick={() => incrementAsync()}>Increment async</button>
+        <button onClick={incrementAsync}>Increment async</button>
       </p>
-    )
+    );
   }
 
 }
-

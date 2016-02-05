@@ -1,14 +1,10 @@
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiImmutable from 'chai-immutable';
 import * as actions from './actions';
-
-chai.use(chaiImmutable);
-
-import counterReducer, {InitialState} from './reducers';
-import Immutable, {Record} from 'immutable';
-
+import counterReducer, { InitialState } from './reducers';
 
 const initialState = new InitialState();
+chai.use(chaiImmutable);
 
 describe('counter reducer', () => {
   it('should return the initial state', () => {
@@ -23,7 +19,7 @@ describe('counter reducer', () => {
     expect(
       counterReducer(initialState, {
         type: actions.SET_COUNTER,
-        payload: 4
+        payload: 4,
       })).to.equal(afterState);
   });
 
@@ -33,10 +29,7 @@ describe('counter reducer', () => {
 
     expect(
       counterReducer(initialStateLocal, {
-        type: actions.INCREMENT_COUNTER
+        type: actions.INCREMENT_COUNTER,
       })).to.equal(afterState);
   });
-
 });
-
-

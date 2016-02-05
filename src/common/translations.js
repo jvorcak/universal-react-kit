@@ -1,6 +1,6 @@
-import {sync as globSync} from 'glob';
+import { sync as globSync } from 'glob';
 import * as path from 'path';
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 
 const translations = globSync('./build/lang/*.json')
   .map((filename) => [
@@ -9,8 +9,9 @@ const translations = globSync('./build/lang/*.json')
   ])
   .map(([locale, file]) => [locale, JSON.parse(file)])
   .reduce((collection, [locale, messages]) => {
-    collection[locale] = messages;
-    return collection;
+    const retCollection = {};
+    retCollection[locale] = messages;
+    return retCollection;
   }, {});
 
 export default translations;

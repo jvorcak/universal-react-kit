@@ -6,46 +6,46 @@ export const INCREMENT_COUNTER_SUCCESS = 'INCREMENT_COUNTER_SUCCESS';
 export function set(value) {
   return {
     type: SET_COUNTER,
-    payload: value
-  }
+    payload: value,
+  };
 }
 
 export function increment() {
   return {
-    type: INCREMENT_COUNTER
-  }
+    type: INCREMENT_COUNTER,
+  };
 }
 
 export function decrement() {
   return {
-    type: DECREMENT_COUNTER
-  }
+    type: DECREMENT_COUNTER,
+  };
 }
 
 export function incrementIfOdd() {
   return (dispatch, getState) => {
-    const { counter: {counter} } = getState();
+    const { counter: { counter } } = getState();
 
     if (counter % 2 === 0) {
-      return
+      return;
     }
 
-    dispatch(increment())
-  }
+    dispatch(increment());
+  };
 }
 
 export function incrementAsync(delay = 1000) {
   return {
     type: INCREMENT_COUNTER,
     payload: {
-      promise: new Promise(function (resolve, reject) {
+      promise: new Promise(resolve => {
         setTimeout(() => {
           function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
           }
-          resolve(getRandomInt(1, 100))
-        }, 500);
-      })
-    }
+          resolve(getRandomInt(1, 100));
+        }, delay);
+      }),
+    },
   };
 }

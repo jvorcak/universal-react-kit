@@ -1,5 +1,5 @@
 import Component from 'react-pure-render/component';
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 // RouterHandler is back since suggested solution via React.cloneElement sucks.
 // https://github.com/rackt/react-router/blob/master/UPGRADE_GUIDE.md#routehandler
@@ -10,17 +10,17 @@ import React, {PropTypes} from 'react';
 // https://github.com/facebook/react/issues/4494#issuecomment-125068868
 export default class RouterHandler extends Component {
 
-  //static propTypes = {
-  //  children: PropTypes.object
-  //};
+  static propTypes = {
+    children: PropTypes.object,
+  };
 
   render() {
-    const {children} = this.props;
+    const { children } = this.props;
     // No children means nothing to render.
     if (!children) return null;
 
     // That makes nested routes working.
-    const propsWithoutChildren = {...this.props};
+    const propsWithoutChildren = { ...this.props };
     delete propsWithoutChildren.children;
 
     return React.cloneElement(children, propsWithoutChildren);

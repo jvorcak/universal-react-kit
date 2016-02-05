@@ -4,13 +4,12 @@ export const DECREMENT_EVENT = 'DECREMENT_EVENT';
 
 export function incrementEvent() {
   return {
-    type: INCREMENT_EVENT
-  }
+    type: INCREMENT_EVENT,
+  };
 }
 
 export function decrementEvent() {
   return {
-    type: DECREMENT_EVENT
-  }
+    type: DECREMENT_EVENT,
+  };
 }
-
