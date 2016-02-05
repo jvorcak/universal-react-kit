@@ -6,8 +6,7 @@
     "syntax-async-functions",
     "transform-async-to-generator",
     ["react-intl", {
-      "messagesDir": "./build/messages/",
-      "enforceDescriptions": true
+      "messagesDir": "./build/messages/"
     }]
   ]
 }
