@@ -31,7 +31,11 @@ export default class Counter extends Component {
           id="clicked"
           description="Clicked message"
           defaultMessage="Clicked"
-        />: {counter} times!
+        /> : {counter}
+        <FormattedMessage id="times"
+                          description="Number of times user clicked"
+                          defaultMessage="times"
+                          />
         {' '}
         <button onClick={increment}>+</button>
         {' '}
