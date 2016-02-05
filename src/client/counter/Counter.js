@@ -1,29 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
-import {incrementAsync} from '../../common/counter/actions';
+import { incrementAsync as asyncAction } from '../../common/counter/actions';
 
 export default class Counter extends Component {
 
-  //static propTypes = {
-  //  increment: PropTypes.func.isRequired,
-  //  incrementIfOdd: PropTypes.func.isRequired,
-  //  incrementAsync: PropTypes.func.isRequired,
-  //  decrement: PropTypes.func.isRequired,
-  //  counter: PropTypes.number.isRequired
-  //};
+  static propTypes = {
+    actions: React.PropTypes.shape({
+      increment: PropTypes.func.isRequired,
+      incrementIfOdd: PropTypes.func.isRequired,
+      incrementAsync: PropTypes.func.isRequired,
+      decrement: PropTypes.func.isRequired,
+    }),
+    counter: React.PropTypes.shape({
+      counter: PropTypes.number.isRequired,
+    }),
+  };
 
   static needs = [
-    incrementAsync
+    asyncAction,
   ];
 
   render() {
     const {
-      actions: {increment, incrementIfOdd, incrementAsync, decrement},
+      actions: { increment, incrementIfOdd, incrementAsync, decrement },
       counter: {
         counter
-        } } = this.props;
+        }
+      } = this.props;
 
     return (
       <p>
@@ -35,9 +39,9 @@ export default class Counter extends Component {
         <FormattedMessage id="times"
                           description="Number of times user clicked"
                           defaultMessage="times"
-                          />
+        />
         {' '}
-        <button onClick={increment}>+</button>
+        <button onClick={ increment }>+</button>
         {' '}
         <button onClick={decrement}>-</button>
         {' '}

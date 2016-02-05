@@ -72,7 +72,7 @@ function handleRender(req, res) {
 
 
     } else {
-      res.status(404).send('Not found.')
+      res.status(404).send('Not found.');
     }
   });
 }
@@ -93,13 +93,13 @@ function renderFullPage(html, initialState, locale, messages) {
         <script src="/static/bundle.js"></script>
       </body>
     </html>
-    `
+    `;
 }
 
 app.listen(port, (error) => {
   if (error) {
-    console.error(error)
+    console.error(error);
   } else {
-    console.info(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`);
   }
 });
