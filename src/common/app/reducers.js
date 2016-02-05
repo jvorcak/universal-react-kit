@@ -4,7 +4,7 @@ import event from '../event/reducers';
 
 const rootReducer = combineReducers({
   counter,
-  event
+  event,
 });
 
 export default rootReducer;
