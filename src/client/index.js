@@ -12,7 +12,7 @@ const store = configureStore(initialState);
 const rootElement = document.getElementById('app');
 const routes = createRoutes();
 
-import messages from '../common/messages';
+import messages from '../../build/lang/en-US.json';
 
 render(
   <Provider store={store}>

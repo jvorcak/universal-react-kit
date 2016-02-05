@@ -28,7 +28,7 @@ import fetchComponentData from '../common/fetchComponentData';
 const app = new Express();
 const port = 3000;
 
-import messages from '../common/messages';
+import messages from '../../build/lang/en-US.json';
 
 // Use this middleware to set up hot module reloading via webpack.
 const compiler = webpack(webpackConfig);
