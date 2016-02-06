@@ -26,10 +26,6 @@ class Counter extends Component {
     intl: intlShape.isRequired,
   };
 
-  static needs = [
-    asyncAction,
-  ];
-
   render() {
     const {
       actions: { increment, incrementIfOdd, incrementAsync, decrement },
@@ -63,7 +59,15 @@ class Counter extends Component {
       </p>
     );
   }
-
 }
 
-export default injectIntl(Counter);
+const wrappedCounter = injectIntl(Counter);
+/**
+ * Here we define all async actions that needs
+ * to be completed before this class is rendered
+ * on a server
+ */
+wrappedCounter.needs = [
+  asyncAction,
+];
+export default wrappedCounter;
