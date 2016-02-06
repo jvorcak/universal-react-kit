@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
@@ -33,7 +34,14 @@ class App extends Component {
 
   render() {
     return (<div>
-      React Home
+      <header>
+        <h1>universal-react-kit</h1>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/counter">Counter</Link></li>
+          <li><Link to="/event">Event</Link></li>
+        </ul>
+      </header>
       <RouterHandler {...this.props}/>
       <DevTools/>
     </div>);

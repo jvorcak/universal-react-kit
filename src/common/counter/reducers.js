@@ -3,7 +3,7 @@ import { SET_COUNTER, INCREMENT_COUNTER, DECREMENT_COUNTER,
   INCREMENT_COUNTER_SUCCESS } from './actions';
 
 export const InitialState = new Record({
-  counter: null,
+  counter: 0,
 });
 const initialState = new InitialState();
 

@@ -19,7 +19,7 @@
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
     "express": "^4.13.3",
-    "history": "^2.0.0",
+    "history": "^1.17.0",
     "immutable": "^3.7.6",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
