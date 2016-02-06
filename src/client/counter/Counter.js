@@ -1,9 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import Helmet from 'react-helmet';
 
 import { incrementAsync as asyncAction } from '../../common/counter/actions';
 
-export default class Counter extends Component {
+const messages = defineMessages({
+  counterTitle: {
+    id: 'counterTitle',
+    defaultMessage: 'Counter title',
+  },
+});
+
+class Counter extends Component {
 
   static propTypes = {
     actions: React.PropTypes.shape({
@@ -15,6 +23,7 @@ export default class Counter extends Component {
     counter: React.PropTypes.shape({
       counter: PropTypes.number.isRequired,
     }),
+    intl: intlShape.isRequired,
   };
 
   static needs = [
@@ -29,8 +38,11 @@ export default class Counter extends Component {
         },
       } = this.props;
 
+    const { formatMessage } = this.props.intl;
+
     return (
       <p>
+        <Helmet title={formatMessage(messages.counterTitle)} />
         <FormattedMessage
           id="clicked"
           description="Clicked message"
@@ -41,7 +53,7 @@ export default class Counter extends Component {
           defaultMessage="times"
         />
         {' '}
-        <button onClick={ increment }>+</button>
+        <button onClick={increment}>+</button>
         {' '}
         <button onClick={decrement}>-</button>
         {' '}
@@ -53,3 +65,5 @@ export default class Counter extends Component {
   }
 
 }
+
+export default injectIntl(Counter);

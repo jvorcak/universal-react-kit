@@ -14,4 +14,5 @@ const translations = globSync('./build/lang/*.json')
     return retCollection;
   }, {});
 
+
 export default translations;

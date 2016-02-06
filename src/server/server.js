@@ -8,6 +8,7 @@ import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { match, RoutingContext } from 'react-router';
+import Helmet from 'react-helmet';
 
 import configureStore from '../common/configureStore';
 import createRoutes from '../client/createRoutes';
@@ -23,12 +24,12 @@ const compiler = webpack(webpackConfig);
 
 const routes = createRoutes();
 
-function renderFullPage(html, initialState, locale, messages) {
+function renderFullPage(html, initialState, head, locale, messages) {
   return `
     <!doctype html>
     <html>
       <head>
-        <title>Redux Universal Example</title>
+        ${head.title.toString()}
       </head>
       <body>
         <div id="app">${html}</div>
@@ -63,11 +64,13 @@ function handleRender(req, res) {
             </Provider>
           );
 
+          const head = Helmet.rewind();
+
           // Grab the initial state from our Redux store
           const finalState = store.getState();
 
           // Send the rendered page back to the client
-          res.end(renderFullPage(html, finalState, locale, messages));
+          res.end(renderFullPage(html, finalState, head, locale, messages));
         });
     } else {
       res.status(404).send('Not found.');

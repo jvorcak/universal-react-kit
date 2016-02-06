@@ -2,8 +2,8 @@
 
 This project is a work in progress. It's a project that serves as a minimal starting point for my React apps.
 
-[![Circle CI](https://circleci.com/gh/jvorcak/my-react-starter.svg?style=svg)](https://circleci.com/gh/jvorcak/my-react-starter)
-[![Dependency Status](https://david-dm.org/jvorcak/my-react-starter.svg)](https://david-dm.org/jvorcak/my-react-starter)
+[![Circle CI](https://circleci.com/gh/jvorcak/universal-react-kit.svg?style=svg)](https://circleci.com/gh/jvorcak/universal-react-kit)
+[![Dependency Status](https://david-dm.org/jvorcak/universal-react-kit.svg)](https://david-dm.org/jvorcak/universal-react-kit)
 
 ## Most important features
   - Store management with Redux
