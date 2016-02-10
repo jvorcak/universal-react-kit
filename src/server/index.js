@@ -23,4 +23,3 @@ global.webpack_isomorphic_tools = new WebpackIsomorphicTools(
     require('./server');
   });
 
-require('./server');
