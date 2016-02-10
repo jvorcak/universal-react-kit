@@ -1,6 +1,15 @@
 require('babel-polyfill');
 var path = require('path');
 var webpack = require('webpack');
+var Webpack_isomorphic_tools_plugin = require('webpack-isomorphic-tools/plugin');
+
+var webpack_isomorphic_tools_plugin =
+  // webpack-isomorphic-tools settings reside in a separate .js file
+  // (because they will be used in the web server code too).
+  new Webpack_isomorphic_tools_plugin(require('./webpack-isomorphic-tools-configuration'))
+  // also enter development mode since it's a development webpack configuration
+  // (see below for explanation)
+    .development();
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -13,11 +22,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
   module: {
     loaders: [
       {
@@ -31,8 +35,24 @@ module.exports = {
         loader: 'json',
         exclude: /node_modules/,
         include: __dirname
-      }
+      },
+      {
+        test: webpack_isomorphic_tools_plugin.regular_expression('images'),
+        loader: 'url-loader?limit=10240', // any image below or equal to 10K will be converted to inline base64 instead
+      },
+      //{
+      //  test: webpack_isomorphic_tools_plugin.regular_expression('styles'),
+      //  loader: 'css_loader_parser?style!css!sass',
+      //  exclude: /node_modules/,
+      //  include: __dirname,
+      //},
     ]
-  }
+  },
+  plugins: [
+    webpack_isomorphic_tools_plugin,
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 };
 

@@ -33,9 +33,14 @@ function mapDispatchToProps(dispatch) {
 class App extends Component {
 
   render() {
+    // to demonstrate webpack-isomorphic-tools
+    const image_path = require('./react-logo.png');
+
     return (<div>
       <header>
         <h1>universal-react-kit</h1>
+
+        <img src={image_path}/>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/counter">Counter</Link></li>
