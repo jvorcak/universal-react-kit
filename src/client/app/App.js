@@ -36,13 +36,13 @@ class App extends Component {
 
   render() {
     // to demonstrate webpack-isomorphic-tools
-    const image_path = require('./react-logo.png');
+    const imagePath = require('./react-logo.png');
 
     return (<div className={styles.app}>
       <header>
         <h1>universal-react-kit</h1>
 
-        <img src={image_path}/>
+        <img src={imagePath}/>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/counter">Counter</Link></li>
