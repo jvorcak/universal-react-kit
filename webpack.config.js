@@ -40,12 +40,12 @@ module.exports = {
         test: webpack_isomorphic_tools_plugin.regular_expression('images'),
         loader: 'url-loader?limit=10240', // any image below or equal to 10K will be converted to inline base64 instead
       },
-      //{
-      //  test: webpack_isomorphic_tools_plugin.regular_expression('styles'),
-      //  loader: 'css_loader_parser?style!css!sass',
-      //  exclude: /node_modules/,
-      //  include: __dirname,
-      //},
+      {
+        test: /\.scss$/,
+        loader: 'style!css?localIdentName=[name]__[local]___[hash:base64:5]!sass',
+        exclude: /node_modules/,
+        include: __dirname,
+      },
     ]
   },
   plugins: [

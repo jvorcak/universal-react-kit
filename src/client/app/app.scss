@@ -1,4 +1,8 @@
-.app {
-  $background-color: #fffdb5;
-  background-color: $background-color;
+body {
+  background: #ffffe7;
+}
+
+:local(.app) {
+  $color: #ffdf9f;
+  background-color: $color;
 }

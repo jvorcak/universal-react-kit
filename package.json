@@ -18,6 +18,7 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "css-loader": "^0.23.1",
     "express": "^4.13.3",
     "history": "^1.17.0",
     "immutable": "^3.7.6",
