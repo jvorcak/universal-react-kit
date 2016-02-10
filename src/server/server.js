@@ -24,7 +24,9 @@ const compiler = webpack(webpackConfig);
 
 const routes = createRoutes();
 
+
 function renderFullPage(html, initialState, head, locale, messages) {
+
   return `
     <!doctype html>
     <html>
