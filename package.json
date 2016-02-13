@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "An example of a universally-rendered Redux application",
   "scripts": {
-    "start": "node src/server/index.js",
+    "start": "concurrent --kill-others \"npm run start-dev-server\" \"npm run start-server\"",
+    "start-dev-server": "node ./run-webpack-server.js",
+    "start-server": "node src/server/index.js",
     "translate": "node translate",
     "test": "mocha --compilers js:babel-core/register ./src/**/*.spec.js",
     "eslint": "eslint src"
@@ -54,6 +56,7 @@
     "babel-runtime": "^6.3.19",
     "chai": "^3.5.0",
     "chai-immutable": "^1.5.3",
+    "concurrently": "^1.0.0",
     "css-loader": "^0.23.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.0",
