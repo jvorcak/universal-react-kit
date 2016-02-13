@@ -1,0 +1,9 @@
+body {
+  background: #61DAFB;
+}
+
+:local(.app) {
+  $color: white;
+  padding: 10px;
+  background-color: $color;
+}

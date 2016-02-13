@@ -1,8 +1,4 @@
 import Express from 'express';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../../webpack.config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -18,13 +14,10 @@ import fetchComponentData from '../common/fetchComponentData';
 
 const app = new Express();
 const port = 3000;
-
-// Use this middleware to set up hot module reloading via webpack.
-const compiler = webpack(webpackConfig);
-
 const routes = createRoutes();
 
 function renderFullPage(html, initialState, head, locale, messages) {
+
   return `
     <!doctype html>
     <html>
@@ -37,7 +30,7 @@ function renderFullPage(html, initialState, head, locale, messages) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
           window.__I18N__ = ${JSON.stringify({ locale, messages })};
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="//localhost:3001/static/bundle.js"></script>
       </body>
     </html>
     `;
@@ -78,13 +71,6 @@ function handleRender(req, res) {
   });
 }
 
-app.use(webpackDevMiddleware(compiler,
-  {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath,
-  }
-));
-app.use(webpackHotMiddleware(compiler));
 app.use(handleRender);
 app.listen(port, (error) => {
   /* eslint-disable no-console */
