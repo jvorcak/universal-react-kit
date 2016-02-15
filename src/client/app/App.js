@@ -8,6 +8,8 @@ import * as counterActions from '../../common/counter/actions';
 import * as eventActions from '../../common/event/actions';
 import RouterHandler from '../../common/components/RouterHandler';
 
+import styles from './app.scss';
+
 function mapStateToProps(state) {
   return {
     ...state,
@@ -33,9 +35,14 @@ function mapDispatchToProps(dispatch) {
 class App extends Component {
 
   render() {
-    return (<div>
+    // to demonstrate webpack-isomorphic-tools
+    const imagePath = require('./react-logo.png');
+
+    return (<div className={styles.app}>
       <header>
         <h1>universal-react-kit</h1>
+
+        <img src={imagePath}/>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/counter">Counter</Link></li>

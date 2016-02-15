@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "An example of a universally-rendered Redux application",
   "scripts": {
-    "start": "node src/server/index.js",
+    "start": "concurrent --kill-others \"npm run start-dev-server\" \"npm run start-server\"",
+    "start-dev-server": "node ./run-webpack-server.js",
+    "start-server": "node src/server/index.js",
     "translate": "node translate",
     "test": "mocha --compilers js:babel-core/register ./src/**/*.spec.js",
     "eslint": "eslint src"
@@ -18,6 +20,7 @@
   },
   "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "css-loader": "^0.23.1",
     "express": "^4.13.3",
     "firebase": "^2.4.0",
     "firebase-promisified": "0.0.1",
@@ -35,14 +38,16 @@
     "redux-logger": "^2.3.1",
     "redux-promise-middleware": "^2.3.3",
     "redux-thunk": "^1.0.3",
+    "serve-static": "^1.10.0",
+    "url-loader": "^0.5.7",
+    "webpack-isomorphic-tools": "^2.2.26"
     "rx": "^4.0.7",
-    "serve-static": "^1.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
     "babel-eslint": "^4.1.8",
     "babel-loader": "^6.2.1",
-    "babel-plugin-react-intl": "2.0.0",
+    "babel-plugin-react-intl": "^2.1.1",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-syntax-async-functions": "^6.3.13",
     "babel-plugin-transform-async-to-generator": "^6.4.6",
@@ -55,6 +60,8 @@
     "babel-runtime": "^6.3.19",
     "chai": "^3.5.0",
     "chai-immutable": "^1.5.3",
+    "concurrently": "^1.0.0",
+    "css-loader": "^0.23.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^5.0.0",
     "eslint-plugin-import": "^0.12.1",
@@ -63,11 +70,14 @@
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",
     "mocha": "^2.4.5",
+    "node-sass": "^3.4.2",
     "react-hot-loader": "^1.3.0",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^3.0.1",
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
     "webpack": "^1.11.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"

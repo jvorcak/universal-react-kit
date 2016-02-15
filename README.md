@@ -12,6 +12,7 @@ This project is a work in progress. It's a project that serves as a minimal star
   - Routing
   - i18n support
   - Redux dev tools
+  - Checking for Airbnb JavaScript Style Guide using eslint
   - ~~E2E tests~~ (coming soon)
   - ~~React native support~~ (coming soon)
   
@@ -46,6 +47,7 @@ npm start
 
 # Runtime
 
+`http://localhost:3000/` main page
 `http://localhost:3000/counter` shows a simple counter example with server rendering
 `http://localhost:3000/event` this page does nothing usefull :) it just serves to test a different module in the app.
 
