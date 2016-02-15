@@ -10,15 +10,27 @@ import firebasePromisified from 'firebase-promisified';
 import inject from 'redux-inject';
 
 // adds Rx and Promises to the Firebase prototype
-firebasePromisified(Firebase, Promise, Rx);
+//firebasePromisified(Firebase, Promise, Rx);
 const firebase = new Firebase('https://fiery-inferno-4599.firebaseio.com/');
+
+//firebase.set({"name": "Alex Wolfe"});
+
+
+//firebase
+//  .child('events')
+//  .child('EkxAj2jUx')
+  //.promiseUpdate()
+  //.then(x => {
+  //  console.log('........', x.createdAt);
+  //  return x;
+  //}, y => console.error(x));
 
 const logger = createLogger({ logger: console });
 const createStoreWithMiddleware = compose(
   applyMiddleware(
+    inject({ firebase }),
     thunk,
     logger,
-    inject({firebase}),
     promiseMiddleware({
       promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'],
     })

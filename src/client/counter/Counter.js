@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Helmet from 'react-helmet';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 
 import { incrementAsync as asyncAction } from '../../common/counter/actions';
 
