@@ -34,15 +34,15 @@
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",
     "redux": "^3.0.0",
-    "redux-inject": "^1.0.2",
     "redux-form": "^4.1.16",
+    "redux-inject": "^1.0.2",
     "redux-logger": "^2.3.1",
     "redux-promise-middleware": "^2.3.3",
     "redux-thunk": "^1.0.3",
+    "rx": "^4.0.7",
     "serve-static": "^1.10.0",
     "url-loader": "^0.5.7",
-    "webpack-isomorphic-tools": "^2.2.26",
-    "rx": "^4.0.7"
+    "webpack-isomorphic-tools": "^2.2.26"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",

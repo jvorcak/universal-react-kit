@@ -4,6 +4,7 @@ import Counter from './counter/Counter';
 import EventsApp from './event/Event';
 import { EventsCreateApp } from './event/CreateEvent';
 import { Route } from 'react-router';
+import { RegisterApp } from './auth/RegisterComponent';
 
 // simple NotFound component
 const NotFound = () => <div>Not found</div>;
@@ -14,6 +15,7 @@ export default function createRoutes() {
       <Route component={Counter} path="counter"/>
       <Route component={EventsApp} path="event"/>
       <Route component={EventsCreateApp} path="event/create"/>
+      <Route component={RegisterApp} path="register"/>
       <Route component={NotFound} path="*"/>
     </Route>
   );
