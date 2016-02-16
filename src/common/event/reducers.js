@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { GET_ALL_EVENTS, GET_ALL_EVENTS_SUCCESS } from './actions';
+import { GET_ALL_EVENTS_SUCCESS } from './actions';
 
 export const InitialState = new Record({
   events: 0,

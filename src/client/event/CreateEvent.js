@@ -1,29 +1,40 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { reduxForm } from 'redux-form';
+import { injectIntl } from 'react-intl';
 
-import { getAllEvents } from '../../common/event/actions';
-
-const messages = defineMessages({
-  eventsTitle: {
-    id: 'eventsTitle',
-    defaultMessage: 'Events title',
-  },
-});
+export const fields = ['name'];
 
 class CreateEvent extends Component {
 
+  static propTypes = {
+    fields: PropTypes.object.isRequired,
+    resetForm: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired,
+  };
+
   render() {
-    const { actions, event }  = this.props;
+    const { fields: { name } } = this.props;
 
     return (
       <div>
         <h2>Create event</h2>
+        <form>
+          <div>
+            <label>Name</label>
+            <div>
+              <input type="text" placeholder="Name" {...name}/>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
-const wrappedEventsApp = injectIntl(CreateEvent);
-export default wrappedEventsApp;
+const CreateEventWrappedIntl = injectIntl(CreateEvent);
+const CreateEventWrappedReduxForm = reduxForm({
+  form: 'simple',
+  fields,
+})(CreateEventWrappedIntl);
 
-
+export const EventsCreateApp = () => <CreateEventWrappedReduxForm/>;
