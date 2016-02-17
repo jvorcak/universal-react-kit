@@ -17,6 +17,7 @@ const port = 3000;
 const routes = createRoutes();
 
 function renderFullPage(html, initialState, head, locale, messages) {
+
   return `
     <!doctype html>
     <html>
