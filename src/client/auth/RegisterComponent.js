@@ -5,12 +5,18 @@ const fields = ['email', 'password'];
 
 class RegisterForm extends Component {
 
-  render() {
+  handleSubmit(e) {
+    e.preventDefault();
     const { actions: { register }, fields: { email, password } } = this.props;
+    register(email.value, password.value);
+  }
+
+  render() {
+    const { fields: { email, password } } = this.props;
 
     return (
       <div>
-        <form>
+        <form onSubmit={e => this.handleSubmit(e)}>
           <div>
             <label>Email</label>
             <div>
@@ -23,27 +29,14 @@ class RegisterForm extends Component {
               <input type="password" placeholder="Password" {...password}/>
             </div>
           </div>
+          <button type="submit">Register</button>
         </form>
-        <button onClick={e => register(email.value, password.value)}>
-          Register
-        </button>
       </div>
     );
   }
 }
 
-const RegisterFormWrapper = reduxForm({
-  form: 'simple',
+export const RegisterFormWrapper = reduxForm({
+  form: 'registration',
   fields,
 })(RegisterForm);
-
-export class RegisterApp extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Register</h1>
-        <RegisterFormWrapper actions={this.props.actions}/>
-      </div>
-    );
-  }
-}

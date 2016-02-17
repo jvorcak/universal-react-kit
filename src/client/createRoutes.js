@@ -4,7 +4,7 @@ import Counter from './counter/Counter';
 import EventsApp from './event/Event';
 import { EventsCreateApp } from './event/CreateEvent';
 import { Route } from 'react-router';
-import { RegisterApp } from './auth/RegisterComponent';
+import RegisterApp from './auth/RegisterApp';
 
 // simple NotFound component
 const NotFound = () => <div>Not found</div>;

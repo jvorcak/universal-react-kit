@@ -10,8 +10,7 @@ export function register(email, password) {
         .createUser({
           email,
           password,
-        }).then((userData) => console.log(
-          "Successfully created user account with uid:", userData.uid)),
+        }),
     },
-  })
+  });
 }
