@@ -4,11 +4,19 @@ import createLogger from 'redux-logger';
 import rootReducer from './app/reducers';
 import DevTools from '../client/devTools';
 import promiseMiddleware from 'redux-promise-middleware';
+import Firebase from 'firebase';
+import inject from 'redux-inject';
+
+// adds Rx and Promises to the Firebase prototype
+const firebase = new Firebase('https://fiery-inferno-4599.firebaseio.com/');
 
 const logger = createLogger({ logger: console });
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    thunk, logger, promiseMiddleware({
+    inject({ firebase }),
+    thunk,
+    logger,
+    promiseMiddleware({
       promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'],
     })
   ),

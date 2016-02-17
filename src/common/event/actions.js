@@ -1,15 +1,15 @@
-export const SET_EVENT = 'SET_EVENT';
-export const INCREMENT_EVENT = 'INCREMENT_EVENT';
-export const DECREMENT_EVENT = 'DECREMENT_EVENT';
+export const GET_ALL_EVENTS = 'GET_ALL_EVENTS';
+export const GET_ALL_EVENTS_SUCCESS = 'GET_ALL_EVENTS_SUCCESS';
+export const GET_ALL_EVENTS_ERROR = 'GET_ALL_EVENTS_ERROR';
 
-export function incrementEvent() {
-  return {
-    type: INCREMENT_EVENT,
-  };
-}
-
-export function decrementEvent() {
-  return {
-    type: DECREMENT_EVENT,
-  };
+export function getAllEvents() {
+  return ({ firebase }) => Object({
+    type: GET_ALL_EVENTS,
+    payload: {
+      promise: firebase
+        .child('name')
+        .once('value')
+        .then(x => x.val()),
+    },
+  });
 }

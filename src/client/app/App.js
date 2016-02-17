@@ -6,6 +6,7 @@ import { Map } from 'immutable';
 import DevTools from '../devTools';
 import * as counterActions from '../../common/counter/actions';
 import * as eventActions from '../../common/event/actions';
+import * as authActions from '../../common/auth/actions';
 import RouterHandler from '../../common/components/RouterHandler';
 
 import styles from './app.scss';
@@ -19,6 +20,7 @@ function mapStateToProps(state) {
 const actions = [
   counterActions,
   eventActions,
+  authActions,
 ];
 
 function mapDispatchToProps(dispatch) {
@@ -47,6 +49,8 @@ class App extends Component {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/counter">Counter</Link></li>
           <li><Link to="/event">Event</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/register">Register</Link></li>
         </ul>
       </header>
       <RouterHandler {...this.props}/>
