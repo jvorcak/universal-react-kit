@@ -13,6 +13,7 @@ This project is a work in progress. It's a project that serves as a minimal star
   - i18n support
   - Redux dev tools
   - Checking for Airbnb JavaScript Style Guide using eslint
+  - Firebase integration
   - ~~E2E tests~~ (coming soon)
   - ~~React native support~~ (coming soon)
   
@@ -31,6 +32,7 @@ This project is a work in progress. It's a project that serves as a minimal star
   - Mocha
   - React-intl 2
   - Eslint
+  - Firebase
 
 As written in a headline, it's used to understand how things fit toghether, so there are probably a lot of things that should be done differently. If you see any of those, please feel free to comment.
 
