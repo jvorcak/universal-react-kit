@@ -24,7 +24,6 @@
     "express": "^4.13.3",
     "firebase": "^2.4.0",
     "firebase-promisified": "0.0.1",
-    "history": "^1.17.0",
     "immutable": "^3.7.6",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
