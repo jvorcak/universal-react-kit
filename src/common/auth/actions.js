@@ -26,6 +26,19 @@ export function register(email, password) {
 
 
 export function login(email, password) {
+
+  // find a suitable name based on the meta info given by each provider
+  function getName(authData) {
+    switch(authData.provider) {
+      case 'password':
+        return authData.password.email.replace(/@.*/, '');
+      case 'twitter':
+        return authData.twitter.displayName;
+      case 'facebook':
+        return authData.facebook.displayName;
+    }
+  }
+
   return ({ firebase }) => Object({
     type: LOGIN,
     payload: {
@@ -33,7 +46,18 @@ export function login(email, password) {
         .authWithPassword({
           email,
           password,
-        }),
+        })
+        .then(authData => {
+          if (authData) {
+            // save the user's profile into the database so we can list users,
+            // use them in Security and Firebase Rules, and show profiles
+            firebase.child("users").child(authData.uid).set({
+              provider: authData.provider,
+              name: getName(authData)
+            });
+          }
+        })
+      ,
     },
   });
 }
