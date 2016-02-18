@@ -12,10 +12,11 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { fields: { email, password } } = this.props;
+    const { actions: { loginWithFacebook }, fields: { email, password } } = this.props;
 
     return (
       <div>
+        <button onClick={loginWithFacebook}>Facebook login</button>
         <form onSubmit={e => this.handleSubmit(e)}>
           <div>
             <label>Email</label>

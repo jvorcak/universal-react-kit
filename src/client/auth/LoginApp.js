@@ -5,7 +5,7 @@ import { LoginFormWrapper } from './LoginComponent';
 class LoginApp extends Component {
 
   componentWillMount() {
-    this.context.router.push('/register');
+    //this.context.router.push('/register');
   }
 
   render() {
@@ -15,7 +15,6 @@ class LoginApp extends Component {
       <div>
         <h1>Login</h1>
         <LoginFormWrapper actions={this.props.actions}/>
-        <button onClick={e=>this.redirect(e)}>Redirect</button>
       </div>
     );
   }
