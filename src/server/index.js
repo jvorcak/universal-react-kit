@@ -21,5 +21,7 @@ global.webpack_isomorphic_tools = new WebpackIsomorphicTools(
   .server(projectBasePath)
   .then(() => {
     require('./server');
-  });
+  })
+  .catch(e => console.log(e));
+
 
