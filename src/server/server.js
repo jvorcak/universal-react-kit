@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { match, RoutingContext } from 'react-router';
+import { match, RouterContext } from 'react-router';
 import Helmet from 'react-helmet';
 
 import configureStore from '../common/configureStore';
@@ -52,7 +52,7 @@ function handleRender(req, res) {
           const html = renderToString(
             <Provider store={store}>
               <IntlProvider locale={locale} messages={messages}>
-                <RoutingContext {...renderProps}/>
+                <RouterContext {...renderProps}/>
               </IntlProvider>
             </Provider>
           );
