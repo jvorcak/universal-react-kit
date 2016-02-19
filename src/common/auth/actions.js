@@ -16,9 +16,6 @@ export const LOGIN_WITH_TWITTER = 'LOGIN_WITH_TWITTER';
 export const LOGIN_WITH_TWITTER_SUCCESS = 'LOGIN_WITH_TWITTER_SUCCESS';
 export const LOGIN_WITH_TWITTER_ERROR = 'LOGIN_WITH_TWITTER_ERROR';
 
-export const CHECK_AUTH = 'CHECK_AUTH';
-export const CHECK_AUTH_SUCCESS = 'CHECK_AUTH_SUCCESS';
-
 export function register(email, password) {
   return ({ firebase }) => Object({
     type: REGISTER,
@@ -34,10 +31,10 @@ export function register(email, password) {
 
 export function checkAuth() {
   return ({firebase}) => Object({
-    type: CHECK_AUTH,
+    type: LOGIN,
     payload: {
-      promise: new Promise(resolve =>
-        firebase.onAuth(data => resolve(data))
+      promise: new Promise((resolve, reject) =>
+        firebase.onAuth(data => data === null ? reject() : resolve(data))
       )
     }
   });
