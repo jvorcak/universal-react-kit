@@ -2,6 +2,8 @@ export const REGISTER = 'REGISTER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 
+export const LOGOUT = 'LOGOUT';
+
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
@@ -13,6 +15,9 @@ export const LOGIN_WITH_FACEBOOK_ERROR = 'LOGIN_WITH_FACEBOOK_ERROR';
 export const LOGIN_WITH_TWITTER = 'LOGIN_WITH_TWITTER';
 export const LOGIN_WITH_TWITTER_SUCCESS = 'LOGIN_WITH_TWITTER_SUCCESS';
 export const LOGIN_WITH_TWITTER_ERROR = 'LOGIN_WITH_TWITTER_ERROR';
+
+export const CHECK_AUTH = 'CHECK_AUTH';
+export const CHECK_AUTH_SUCCESS = 'CHECK_AUTH_SUCCESS';
 
 export function register(email, password) {
   return ({ firebase }) => Object({
@@ -27,12 +32,31 @@ export function register(email, password) {
   });
 }
 
+export function checkAuth() {
+  return ({firebase}) => Object({
+    type: CHECK_AUTH,
+    payload: {
+      promise: new Promise(resolve =>
+        firebase.onAuth(data => resolve(data))
+      )
+    }
+  });
+}
+
+export function logOut() {
+  return ({firebase}) => {
+    firebase.unauth();
+    return {
+      type: LOGOUT
+    };
+  };
+}
 
 export function login(email, password) {
 
   // find a suitable name based on the meta info given by each provider
   function getName(authData) {
-    switch(authData.provider) {
+    switch (authData.provider) {
       case 'password':
         return authData.password.email.replace(/@.*/, '');
       case 'twitter':
@@ -59,6 +83,7 @@ export function login(email, password) {
               name: getName(authData)
             });
           }
+          return authData;
         })
       ,
     },

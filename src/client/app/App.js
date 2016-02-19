@@ -36,14 +36,22 @@ function mapDispatchToProps(dispatch) {
 
 class App extends Component {
 
+  componentWillMount() {
+    const { actions: { checkAuth } } = this.props;
+    checkAuth();
+  }
+
   render() {
     // to demonstrate webpack-isomorphic-tools
     const imagePath = require('./react-logo.png');
 
+    const { auth, actions: {logOut} }  = this.props;
+
+    const avatarURL = auth.getIn(["loggedIn", "password", "profileImageURL"]);
+
     return (<div className={styles.app}>
       <header>
         <h1>universal-react-kit</h1>
-
         <img src={imagePath}/>
         <ul>
           <li><Link to="/">Home</Link></li>
@@ -51,7 +59,9 @@ class App extends Component {
           <li><Link to="/event">Event</Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/register">Register</Link></li>
+          <li><a href="#" onClick={e => logOut(e)}>Log out</a></li>
         </ul>
+        <img src={avatarURL}/>
       </header>
       <RouterHandler {...this.props}/>
       <DevTools/>

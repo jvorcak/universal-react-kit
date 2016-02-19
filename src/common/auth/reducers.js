@@ -1,6 +1,5 @@
-import { Record } from 'immutable';
-import { REGISTER_SUCCESS } from './actions';
-import { LOGIN_SUCCESS } from './actions';
+import Immutable, { Record } from 'immutable';
+import { REGISTER_SUCCESS, LOGIN_SUCCESS, LOGOUT, CHECK_AUTH_SUCCESS } from './actions';
 
 export const InitialState = new Record({
   loggedIn: 0,
@@ -16,7 +15,11 @@ export default function authReducer(state = initialState, action) {
 
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return state.set('loggedIn', 1);
+      return state.set('loggedIn', Immutable.fromJS(action.payload));
+    case CHECK_AUTH_SUCCESS:
+      return state.set('loggedIn', Immutable.fromJS(action.payload));
+    case LOGOUT:
+      return state.set('loggedIn', null);
     default:
       return state;
   }
