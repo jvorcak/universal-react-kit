@@ -33,7 +33,7 @@ class CreateEvent extends Component {
 
 const CreateEventWrappedIntl = injectIntl(CreateEvent);
 const CreateEventWrappedReduxForm = reduxForm({
-  form: 'simple',
+  form: 'newEvent',
   fields,
 })(CreateEventWrappedIntl);
 

@@ -23,14 +23,20 @@ export function decrement() {
 }
 
 export function incrementIfOdd() {
-  return (dispatch, getState) => {
+  return ({store: { getState, dispatch }}) => {
     const { counter: { counter } } = getState();
 
+    // TODO - write a better middleware so that one
+    // doesn't need to return anything from an action
     if (counter % 2 === 0) {
-      return;
+      return {
+        type: ''
+      };
     }
 
-    dispatch(increment());
+    return {
+      type: INCREMENT_COUNTER
+    }
   };
 }
 

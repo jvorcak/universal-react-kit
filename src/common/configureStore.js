@@ -1,30 +1,37 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from './app/reducers';
 import DevTools from '../client/devTools';
 import promiseMiddleware from 'redux-promise-middleware';
 import Firebase from 'firebase';
-import inject from 'redux-inject';
 
 // adds Rx and Promises to the Firebase prototype
-const firebase = new Firebase('https://fiery-inferno-4599.firebaseio.com/');
-
-const logger = createLogger({ logger: console });
-const createStoreWithMiddleware = compose(
-  applyMiddleware(
-    inject({ firebase }),
-    thunk,
-    logger,
-    promiseMiddleware({
-      promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'],
-    })
-  ),
-  DevTools.instrument()
-)(createStore);
 
 export default function configureStore(initialState) {
-  const store = createStoreWithMiddleware(rootReducer, initialState);
+
+  const firebase = new Firebase('https://fiery-inferno-4599.firebaseio.com/');
+
+  // Inspired by https://github.com/este/este
+  // TODO Maybe I misunderstood, but it fails if an actions returns undefined.
+  const injectMiddleware = deps => store => next => action =>
+    next(typeof action === 'function'
+      ? action({...deps, store})
+      : action
+    );
+  const logger = createLogger({ logger: console });
+
+  const store = compose(
+    applyMiddleware(
+      injectMiddleware({
+        firebase,
+      }),
+      logger,
+      promiseMiddleware({
+        promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'],
+      })
+    ),
+    DevTools.instrument()
+  )(createStore)(rootReducer, initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
