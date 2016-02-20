@@ -8,7 +8,7 @@ class EventsApp extends Component {
 
   static propTypes = {
     event: React.PropTypes.shape({
-      events: PropTypes.array.isRequired,
+      events: PropTypes.object.isRequired,
     }),
     actions: React.PropTypes.shape({
       getAllEvents: PropTypes.func.isRequired,
@@ -27,10 +27,17 @@ class EventsApp extends Component {
   render() {
     const { event } = this.props;
 
+    const events = event.get('events').toList().toJS();
+
     return (
       <div>
         <div><Link to={`/event/create`}>Create event</Link></div>
-        Events {event.events}
+        Events
+        <ul>
+          {events.map(event =>
+            <li key={event.id}>{event.name}</li>
+          )}
+        </ul>
       </div>
     );
   }

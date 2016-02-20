@@ -28,7 +28,7 @@ export function getAllEvents() {
     type: GET_ALL_EVENTS,
     payload: {
       promise: firebase
-        .child('name')
+        .child('events')
         .once('value')
         .then(x => x.val()),
     },
