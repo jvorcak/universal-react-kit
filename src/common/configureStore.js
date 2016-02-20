@@ -4,6 +4,7 @@ import rootReducer from './app/reducers';
 import DevTools from '../client/devTools';
 import promiseMiddleware from 'redux-promise-middleware';
 import Firebase from 'firebase';
+import shortid from 'shortid';
 
 // adds Rx and Promises to the Firebase prototype
 
@@ -24,6 +25,7 @@ export default function configureStore(initialState) {
     applyMiddleware(
       injectMiddleware({
         firebase,
+        getUid: () => shortid.generate(),
       }),
       logger,
       promiseMiddleware({

@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { GET_ALL_EVENTS_SUCCESS } from './actions';
+import { GET_ALL_EVENTS_SUCCESS, SAVE_EVENT } from './actions';
 
 export const InitialState = new Record({
   events: 0,
@@ -16,6 +16,8 @@ export default function counterReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_EVENTS_SUCCESS:
       return state.set('events', action.payload);
+    case SAVE_EVENT:
+      return state.setIn(['events', 'saving'], true);
     default:
       return state;
   }
